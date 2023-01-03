@@ -66,13 +66,25 @@
               amount: price + "",
             }),
           })
+
           .then((res) => {
             res.text().then((rawRequest) => {
-              window.xm
-                .native("startPay", { rawRequest: rawRequest })
-                .then((startPayRes) => {
-                  console.log("startPayRes");
-                });
+              if (!rawRequest) {
+                return;
+              }
+              if (!window.consumerapp) {
+                console.log("this page is not open in app");
+                return;
+              }
+
+              window.consumerapp.evaluate(
+                JSON.stringify({
+                  functionName: "js_fun_start_pay",
+                  params: {
+                    rawRequest: rawRequest,
+                  },
+                })
+              );
             });
           })
           .finally(() => {

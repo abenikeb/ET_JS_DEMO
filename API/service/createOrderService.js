@@ -18,6 +18,7 @@ exports.createOrder = async (req, res) => {
   console.log(createOrderResult);
   let prepayId = createOrderResult.biz_content.prepay_id;
   let rawRequest = createRawRequest(prepayId);
+  // console.log("RAW_REQ: ", rawRequest);
   res.send(rawRequest);
 };
 
